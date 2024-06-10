@@ -1,0 +1,30 @@
+{
+  "name": "linea_transporte_node",
+  "version": "1.0.0",
+  "description": "backend de app linea",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "flutter",
+    "linea",
+    "node",
+    "js"
+  ],
+  "author": "PIERR CALDERON",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "googleapis": "^137.1.0",
+    "http": "^0.0.1-security",
+    "morgan": "^1.10.0",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "pg-promise": "^11.7.8"
+  }
+}
