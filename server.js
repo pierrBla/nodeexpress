@@ -4,7 +4,7 @@ const http    = require('http');
 const server  = http.createServer(app);
 const logger  = require('morgan');
 const cors    = require('cors');
-
+require ('dotenv').config()
 /*
 *RUTAS
 */
@@ -36,7 +36,7 @@ users(app);
 *LLAMANDO  A LAS RUTAS
 */
 
-server.listen(3000,'192.168.166.86' || 'localhost',function(){
+server.listen(process.env.PORT || 'localhost',function(){
     console.log('Aplicacion de NodeJS ' + port + ' Iniciada')
 });
 app.get('/',(req,res)=>{
