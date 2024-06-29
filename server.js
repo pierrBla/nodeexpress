@@ -35,10 +35,14 @@ users(app);
 /*
 *LLAMANDO  A LAS RUTAS
 */
-
+/*
 server.listen(process.env.PORT || 'localhost',function(){
     console.log('Aplicacion de NodeJS ' + port + ' Iniciada')
 });
+*/
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+  })
 app.get('/',(req,res)=>{
 res.send('ruta raiz del backend');
 });
