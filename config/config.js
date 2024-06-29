@@ -15,6 +15,16 @@ const databaseConfig={
     'database':process.env.POSTGRES_DATABASE,
     'user':process.env.POSTGRES_USERNAME,
     'password':process.env.POSTGRES_PASSWORD,
+    
+    ssl: process.env.POSTGRES_SSL === "true",
+      extra: {
+        ssl:
+          process.env.POSTGRES_SSL === "true"
+            ? {
+                rejectUnauthorized: false,
+              }
+            : null,
+      },
 };
 /*
 const databaseConfig={
