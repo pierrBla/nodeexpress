@@ -16,6 +16,48 @@ module.exports={
             });
         }
     },
+    async getName(req,res,next){
+        try {
+            const name=req.params.name;
+            const data =await User.findByNombre(name);
+            console.log(`Usuarios: ${data}`);
+            return res.status(201).json(data);
+        } catch (error) {
+            console.log(`Error: ${error}`);
+            return res.status(501).json({
+                success:false,
+                message:'Error al obtener los usuarios'
+            });
+        }
+    },
+
+    async getProbar(req,res,next){
+        try {
+            const name=req.body.name;
+            const data =await User.findByProbar(name);
+            //console.log(`Usuarios: ${data}`);
+            //return res.status(201).json(data)
+
+         
+            if(!data){
+                return res.status(401).json({
+                    success:false,
+                    message:'No  se encontro usuario'
+                })
+            }
+            if(data){
+                console.log(`Usuarios: ${data}`);
+                return res.status(201).json(data)
+            }
+
+        } catch (error) {
+            console.log(`Error: ${error}`);
+            return res.status(501).json({
+                success:false,
+                message:'Error no se encontro usuarios'
+            });
+        }
+    },
     async registro(req,res,next){
         try {
             const user= req.body;

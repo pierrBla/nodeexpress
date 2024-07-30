@@ -11,3 +11,6 @@ session_token VARCHAR(255)NULL,
 created_at TIMESTAMP(0)NOT NULL,
 updated_at TIMESTAMP(0)NOT NULL
 );
+
+
+

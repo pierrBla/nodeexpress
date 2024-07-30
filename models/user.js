@@ -47,6 +47,51 @@ User.findByEmail=(email)=>{
     `;
     return db.oneOrNone(sql,email)
 }
+User.findByNombre=(name)=>{
+    const sql =`
+    SELECT 
+      id,
+      email,
+      name,
+      lastname
+       FROM
+    users 
+    WHERE
+    name=$1
+    `;
+    return db.manyOrNone(sql,name)
+}
+
+
+User.findByProbar=(name)=>{
+    const sql =`
+    BEGIN;
+
+
+DO $$
+DECLARE
+    user_id INTEGER;
+BEGIN
+  
+    SELECT id INTO user_id FROM users WHERE name = $1;
+
+   
+    IF user_id IS NOT NULL THEN
+       
+        INSERT INTO logs (user_id, action, timestamp)
+        VALUES (user_id, 'Registro exitoso', NOW());
+    ELSE
+      
+        RAISE EXCEPTION 'Usuario no encontrado';
+    END IF;
+END $$;
+
+
+COMMIT;
+    `;
+    return db.manyOrNone(sql,name)
+}
+
 User.create =(user)=>{
 
     const mypasswordHashed=crypto.createHash('md5').update(user.password).digest('hex');

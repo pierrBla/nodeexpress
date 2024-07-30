@@ -1,58 +1,47 @@
 const express = require('express');
-const app     = express();
-const http    = require('http');
-const server  = http.createServer(app);
-const logger  = require('morgan');
-const cors    = require('cors');
-require ('dotenv').config()
-/*
-*RUTAS
-*/
-const users=require('./routes/usersRoutes');
+const http = require('http');
+const logger = require('morgan');
+const cors = require('cors');
+const path = require('path');
+require('dotenv').config();
 
-/*
-*RUTAS
-*/
-const port = process.env.PORT || 3000;
+const app = express();
+const server = http.createServer(app);
 
+// Load environment variables
+const { PORT = 3000 } = process.env;
+
+// Middleware setup
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({
-  extended:true
-}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.disable('x-powered-by');
 
-app.set('port',port);
-
-/*
-*LLAMANDO A LAS RUTAS
-*/
-
+// Load routes
+const users = require(path.join(__dirname, 'routes', 'usersRoutes'));
 users(app);
 
-
-/*
-*LLAMANDO  A LAS RUTAS
-*/
-/*
-server.listen(process.env.PORT || 'localhost',function(){
-    console.log('Aplicacion de NodeJS ' + port + ' Iniciada')
-});
-*/
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-  })
-app.get('/',(req,res)=>{
-res.send('ruta raiz del backend');
-});
-//Manejo de Error
-app.use((err,req,res,next)=>{
-    console.log(err);
-    res.status(err.status || 500).send(err.stack);
+// Root route
+app.get('/', (req, res) => {
+    res.send('Ruta raíz del backend');
 });
 
-module.exports={
-    app:app,
-    server:server
-}
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(err.status || 500).json({
+        message: 'Internal Server Error',
+        error: process.env.NODE_ENV === 'development' ? err.stack : {}
+    });
+});
+
+// Start server
+server.listen(PORT, () => {
+    console.log(`Aplicación de NodeJS iniciada en el puerto ${PORT}`);
+});
+
+module.exports = {
+    app,
+    server
+};
