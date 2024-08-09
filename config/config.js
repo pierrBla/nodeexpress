@@ -26,14 +26,6 @@ const databaseConfig={
             : null,
       },
 };
-/*
-const databaseConfig={
-    'host':'127.0.0.1',
-    'port':5432,
-    'database':'ralenti',
-    'user':'postgres',
-    'password':'admin'
-};
-*/
+
 const db =pgp(databaseConfig);
 module.exports=db;

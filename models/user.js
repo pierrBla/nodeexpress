@@ -10,7 +10,7 @@ User.getAll=()=>{
     `;
     return db.manyOrNone(sql);
 }
-//traer datos por id
+
 User.findById=(id,callback)=>{
     const sql =`
     SELECT 
